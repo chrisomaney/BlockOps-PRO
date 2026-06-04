@@ -13,18 +13,14 @@ From the workspace root:
 ```bash
 unzip -qo blockops-mobile.zip -d .
 cd blockops-mobile
-npm install --legacy-peer-deps
+npm install
 ```
 
-NativeWind v4’s Babel pipeline also needs packages that are not listed in the committed `package.json` inside the zip. Install them after `npm install` (use `--no-save` if you must not change `package.json`):
+The zip includes `package-lock.json`, `.npmrc` (`legacy-peer-deps=true`), and `expo-font` / `react-native-worklets` in `package.json` (required for NativeWind v4 web bundling).
 
-```bash
-npm install expo-font@~12.0.10 react-native-worklets@0.9.1 --legacy-peer-deps --no-save
-```
+### Assets
 
-### Placeholder assets (required for Metro / web)
-
-`app.json` references `./assets/icon.png`, `splash.png`, `adaptive-icon.png`, and `favicon.png`, but the zip only ships `assets/README.md`. Without those PNGs, `expo start --web` fails with `ENOENT` on `favicon.png`. Create minimal placeholders once per workspace (see `blockops-mobile/assets/README.md` for brand specs), or add real branded assets before store builds.
+The zip ships minimal placeholder PNGs under `assets/` so Metro/web can start. Replace them with branded assets before store builds (see `blockops-mobile/assets/README.md`).
 
 ### Running the app (Cloud VM / Linux)
 
